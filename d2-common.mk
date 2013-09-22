@@ -17,7 +17,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 ## Get non-open-source specific aspects
-$(call inherit-product, vendor/samsung/d2-common/d2-common-vendor.mk)
+$(call inherit-product, vendor/samsung/goghspr/goghspr-vendor.mk)
 
 ## overlays
 DEVICE_PACKAGE_OVERLAYS += device/samsung/d2-common/overlay
@@ -30,7 +30,7 @@ endif
 
 # Boot animation
 
-ifeq ($(filter apexqtmo expressatt goghspr,$(VARIENT_MODEL)),)
+ifeq ($(filter apexqtmo expressatt goghspr goghvmu,$(VARIENT_MODEL)),)
 ## merge colusion
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
@@ -166,7 +166,7 @@ PRODUCT_COPY_FILES += \
 # common msm8960
 $(call inherit-product, device/samsung/msm8960-common/msm8960.mk)
 
-ifeq ($(filter apexqtmo expressatt goghspr,$(VARIENT_MODEL)),)
+ifeq ($(filter apexqtmo expressatt goghspr goghvmu,$(VARIENT_MODEL)),)
     $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 else
     $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
