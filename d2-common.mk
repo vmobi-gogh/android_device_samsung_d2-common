@@ -22,19 +22,22 @@ $(call inherit-product, vendor/samsung/goghspr/goghspr-vendor.mk)
 ## overlays
 DEVICE_PACKAGE_OVERLAYS += device/samsung/d2-common/overlay
 
-ifneq ($(VARIENT_MODEL),expressatt)
-# Device uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
-endif
-
-# Boot animation
+# Boot animation and screen size
 
 ifeq ($(filter apexqtmo expressatt goghspr goghvmu,$(VARIENT_MODEL)),)
-## merge colusion
+# Device uses high-density artwork where available
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
+
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
 PRODUCT_PROPERTY_OVERRIDES += ro.sf.lcd_density=320
+else
+# These poor devices have smaller screens
+PRODUCT_AAPT_CONFIG := normal hdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
+TARGET_SCREEN_HEIGHT := 800
+TARGET_SCREEN_WIDTH := 480
+PRODUCT_PROPERTY_OVERRIDES += ro.sf.lcd_density=240
 endif
 
 # Audio configuration
@@ -107,7 +110,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.snapshot_disabled=1 \
     com.qc.hardware=true \
     persist.radio.apm_sim_not_pwdn=1 \
-    ro.telephony.call_ring.multiple=0 \
     ro.ril.transmitpower=true \
     ro.opengles.version=131072 \
     persist.audio.vr.enable=false \
